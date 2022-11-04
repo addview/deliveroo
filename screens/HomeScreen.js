@@ -1,6 +1,5 @@
 import { View, Text } from "react-native";
-import React, { useLayoutEffect } from "react";
-import { useNavigation } from "@react-navigation/native";
+import React from "react";
 
 const HomeScreen = () => {
   return (
