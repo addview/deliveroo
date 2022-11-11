@@ -6,7 +6,7 @@ import {
   TextInput,
   ScrollView,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import {
   ChevronDownIcon,
@@ -17,14 +17,36 @@ import {
 } from "react-native-heroicons/outline";
 import Categories from "../components/Categories";
 import FeaturedRow from "../components/FeatureRow";
+import client from "../sanity";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const [featuredCategories, setFeaturedCategories] = useState([]);
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });
+  }, []);
+
+  useEffect(() => {
+    client
+      .fetch(
+        `
+      *[_type == "featured"] {
+        ...,
+        restaurants[] -> {
+          ...,
+          dishes[] ->,
+          type->{
+            name
+          }
+        },
+      }`
+      )
+      .then((data) => {
+        setFeaturedCategories(data);
+      });
   }, []);
 
   return (
@@ -62,7 +84,7 @@ const HomeScreen = () => {
 
         <FeaturedRow
           id="123"
-          title="Featured"
+          title="Featured22"
           description="Paid placement from our partners"
         />
         <FeaturedRow
