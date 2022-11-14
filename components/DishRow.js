@@ -2,10 +2,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import React, { useState } from "react";
 import Currency from "react-currency-formatter";
 import { urlFor } from "../sanity";
-import {
-  MinusCircleIcon,
-  PlusCircleIcon,
-} from "react-native-heroicons/outline";
+import { MinusCircleIcon, PlusCircleIcon } from "react-native-heroicons/solid";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToBasket,
@@ -57,7 +54,10 @@ const DishRow = ({ id, name, description, price, image }) => {
         <View className="bg-white px-4">
           <View className="flex-row items-center space-x-2 pb-3">
             <TouchableOpacity onPress={removeItemFromBasket}>
-              <MinusCircleIcon size={30} color={"#00CCBB"}></MinusCircleIcon>
+              <MinusCircleIcon
+                size={30}
+                color={items.length > 0 ? "#00CCBB" : "gray"}
+              ></MinusCircleIcon>
             </TouchableOpacity>
             <Text>{items.length}</Text>
             <TouchableOpacity onPress={addItemsToBasket}>
